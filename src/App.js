@@ -4,7 +4,7 @@ const App = () => {
   return (
     <div>
       <input required placeholder="search field"></input>
-      <select>
+      <select name>
         <option value="movie">movie</option>
         <option value="series">series</option>
         <option value="episode">episode</option>
