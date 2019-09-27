@@ -4,6 +4,7 @@ import axios from "axios";
 const App = () => {
   const [searchText, setSearchText] = useState("");
   const [searchYear, setSearchYear] = useState("");
+  const [searchType, setSearchType] = useState("");
   const [data, setData] = useState([]);
 
   const onSearch = async e => {
@@ -13,11 +14,11 @@ const App = () => {
         params: {
           apikey: "d93bd1eb",
           s: searchText,
-          y: searchYear
+          y: searchYear,
+          type: searchType
         }
       });
-      console.log(newData.data.Search);
-      setData(newData.data.Search);
+      setData(newData.data.Search || []);
     } catch (err) {
       console.log("error :", err);
     }
@@ -32,7 +33,7 @@ const App = () => {
           values={searchText}
           onChange={e => setSearchText(e.target.value)}
         ></input>
-        <select name="type">
+        <select name="type" onChange={e => setSearchType(e.target.value)}>
           <option value="">-- type --</option>
           <option value="movie">movie</option>
           <option value="series">series</option>
@@ -43,9 +44,9 @@ const App = () => {
       </form>
 
       {data.length > 0 &&
-        data.map(movie => {
+        data.map((movie, index) => {
           return (
-            <div key={movie.imdbID}>
+            <div key={index}>
               <h1>{movie.Title}</h1>
               <h1>{movie.Year}</h1>
               <h1>{movie.imdbID}</h1>
