@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import axios from "axios";
 
 const App = () => {
@@ -47,10 +49,11 @@ const App = () => {
         data.map((movie, index) => {
           return (
             <div key={index}>
-              <h1>{movie.Title}</h1>
-              <h1>{movie.Year}</h1>
-              <h1>{movie.imdbID}</h1>
-              <h1>{movie.Type}</h1>
+              <h1>Title: {movie.Title}</h1>
+              <button>Details</button>
+              <h1>Year: {movie.Year}</h1>
+              <h1>imdb ID: {movie.imdbID}</h1>
+              <h1>Type: {movie.Type}</h1>
               <img alt={movie.Title} src={movie.Poster}></img>
             </div>
           );
