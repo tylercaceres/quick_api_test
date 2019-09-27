@@ -71,21 +71,39 @@ const App = () => {
 };
 
 const Details = ({ spec }) => {
-  useEffect(async () => {
-    try {
-      const details = await axios.get("http://www.omdbapi.com", {
+  console.log("spec :", spec);
+  const [movieData, setMovieData] = useState({});
+  useEffect(() => {
+    axios
+      .get("http://www.omdbapi.com", {
         params: {
           apikey: "d93bd1eb",
-          i: searchText,
-          plot: full
+          i: spec,
+          plot: "full"
         }
-      });
-    } catch (err) {
-      console.log("error :", err);
-    }
-  }, []);
-  console.log(spec);
-  return <div>hello</div>;
+      })
+      .then(res => {
+        console.log("res: ", res.data);
+        setMovieData({ ...res.data });
+        console.log("movie data: ", movieData);
+      })
+      .catch(err => console.log("error: ", err));
+  }, [spec]);
+
+  return (
+    { movieData } && (
+      <div>
+        <h1>Title: {movieData.Title}</h1>
+        <img alt={movieData.Title} src={movieData.Poster}></img>
+        <h1>Year: {movieData.Year}</h1>
+        <h1>Type: {movieData.Type}</h1>
+        <h1>Released: {movieData.Released}</h1>
+        <h1>Genre: {movieData.Genre}</h1>
+        {/* <h1>Ratings: {movieData.Ratings[0]}</h1> */}
+      </div>
+    )
+  );
+  // return <div>{movieData && movieInformation()}</div>;
 };
 
 export default App;
