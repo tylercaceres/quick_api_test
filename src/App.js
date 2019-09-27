@@ -1,11 +1,26 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+//omd api key --> d93bd1eb
+
 const App = () => {
   const [searchText, setSearchText] = useState("");
   const [searchYear, setSearchYear] = useState("");
 
-  onSearch = () => {};
+  const onSearch = async () => {
+    try {
+      const data = await axios.get("http://www.omdbapi.com", {
+        params: {
+          apikey: "d93bd1eb",
+          t: searchText,
+          y: searchYear
+        }
+      });
+      console.log(data);
+    } catch (err) {
+      console.log("error :", err);
+    }
+  };
 
   return (
     <>
